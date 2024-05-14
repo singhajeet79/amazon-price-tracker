@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Price Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Amazon Price Tracker</h1>
+        <form action="/check_price" method="post">
+            <label for="url">Amazon Product URL:</label>
+            <input type="text" id="url" name="url" required><br>
+            <label for="budget">Your Budget (INR):</label>
+            <input type="number" id="budget" name="budget" required><br>
+            <button type="submit">Check Price</button>
+        </form>
+    </div>
+</body>
+</html>

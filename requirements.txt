@@ -2,3 +2,6 @@ bs4
 requests
 pygame
 colored
+Flask
+requests
+beautifulsoup4
