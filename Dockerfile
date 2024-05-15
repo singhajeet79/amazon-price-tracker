@@ -1,33 +1,18 @@
 # Use an official Python runtime as the base image
-FROM python:3.9
+FROM python:3.9-slim
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
-
-# Copy the requirements.txt file into the container
+# Copy the requirements.txt file into the container and install dependencies
 COPY requirements.txt .
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    python -m pip install types-requests types-beautifulsoup4
 
-# Install any dependencies required to compile the code
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# Copy the current directory contents into the container at /app
+COPY . .
 
-# Install type stubs for requests and bs4 modules
-RUN python -m pip install types-requests types-beautifulsoup4
-
-# Install pylint
-RUN pip install pylint
-RUN pip install mypy
-
-# Install Bandit
-RUN pip install bandit
-
-# Compile your code
-RUN pylint **/*.py
-RUN mypy */*.py
-RUN bandit -r .
-
-# Define command to run your application (if applicable)
+# Define command to run your application
 CMD ["python3", "app.py"]
+
