@@ -57,3 +57,4 @@ def check_price_and_features(url, budget, timeout=10):
         if not product_price:
             print("Product price not found.")
         return None
+
