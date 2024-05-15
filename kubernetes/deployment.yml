@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: amazon-price-tracker
+  name: amazon-price-tracker
+spec:
+  selector:
+    matchLabels:
+      app: amazon-price-tracker
+  template:
+    metadata:
+      labels:
+        app: amazon-price-tracker
+        code: red
+    spec:
+      containers:
+        - image: 'docker.io/ajeetsingh77/price-tracker-app:latest'
+          name: amazon-price-tracker
+          ports:
+            - containerPort: 30795
