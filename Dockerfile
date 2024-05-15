@@ -21,6 +21,9 @@ RUN python -m pip install types-requests types-beautifulsoup4
 RUN pip install pylint
 RUN pip install mypy
 
+# Install Bandit
+RUN pip install bandit
+
 # Compile your code
 RUN pylint **/*.py
 RUN mypy */*.py
