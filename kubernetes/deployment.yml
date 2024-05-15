@@ -1,10 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: amazon-price-tracker
   name: amazon-price-tracker
 spec:
+  replicas: 1 # Number of app instances to run
   selector:
     matchLabels:
       app: amazon-price-tracker
@@ -12,10 +11,9 @@ spec:
     metadata:
       labels:
         app: amazon-price-tracker
-        code: red
     spec:
       containers:
-        - image: 'docker.io/ajeetsingh77/price-tracker-app:latest'
-          name: amazon-price-tracker
-          ports:
-            - containerPort: 30795
+      - name: amazon-price-tracker
+        image: 'docker.io/ajeetsingh77/price-tracker-app:latest'  # Replace with your Docker image name and tag
+        ports:
+        - containerPort: 5000  # Port your app listens on (matches local development)
