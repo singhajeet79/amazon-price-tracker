@@ -7,9 +7,15 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
+# Copy the requirements.txt file into the container
+COPY requirements.txt .
+
 # Install any dependencies required to compile the code
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+
+# Install type stubs for requests and bs4 modules
+RUN python -m pip install types-requests types-beautifulsoup4
 
 # Install pylint
 RUN pip install pylint
