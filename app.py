@@ -39,5 +39,4 @@ def check_price():
                            product_price=product_price, \
                            within_budget=within_budget, features=features)
 if __name__ == '__main__':
-    app.run(debug=True)
-    
+    app.run(debug=False)
