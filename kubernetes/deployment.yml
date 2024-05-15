@@ -20,6 +20,3 @@ spec:
       volumeMounts:
       - name: your-app-volume
         mountPath: /app
-      volumes:
-      - name: your-app-volume
-        emptyDir: {}
