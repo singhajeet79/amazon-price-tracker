@@ -11,6 +11,10 @@ COPY . /app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
+# Install pylint
+RUN pip install pylint
+RUN pip install mypy
+
 # Compile your code
 RUN pylint **/*.py
 RUN mypy **/*.py
