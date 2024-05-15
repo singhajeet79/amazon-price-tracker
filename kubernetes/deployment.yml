@@ -18,5 +18,5 @@ spec:
         ports:
         - containerPort: 5000  # Port your app listens on (matches local development)
       volumeMounts:
-      - name: your-app-volume
-        mountPath: /app
+      - mountPath: /app
+        name: your-app-volume
