@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'mypy *.py'
+                        sh 'mypy **/*.py'
                     } catch (Exception e) {
                         echo 'Type checking failed'
                         currentBuild.result = 'FAILURE'
