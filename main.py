@@ -19,7 +19,7 @@ def check_price_and_features(url, budget, timeout=10):
         dict or None: A dictionary containing product information if found, else None.
     """
     headers = {
-        "User-Agent": 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36'
+        "User-Agent": 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0"
     }
 
     response = requests.get(url, headers=headers, timeout=timeout)
