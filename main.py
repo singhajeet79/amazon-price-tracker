@@ -19,7 +19,8 @@ def check_price_and_features(url, budget, timeout=10):
         dict or None: A dictionary containing product information if found, else None.
     """
     headers = {
-        "User-Agent": 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0'
+        "User-Agent": 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; \
+            rv:125.0) Gecko/20100101 Firefox/125.0'
     }
 
     response = requests.get(url, headers=headers, timeout=timeout)
@@ -31,7 +32,8 @@ def check_price_and_features(url, budget, timeout=10):
 
     if product_title and product_price:
         product_title = product_title.get_text().strip()
-        product_price = product_price.get_text().replace(',', '') + (product_price_fraction.get_text() if product_price_fraction else '')
+        product_price = product_price.get_text().replace(',', '') + \
+            (product_price_fraction.get_text() if product_price_fraction else '')
 
         try:
             product_price = float(product_price)
