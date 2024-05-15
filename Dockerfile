@@ -17,7 +17,7 @@ RUN pip install mypy
 
 # Compile your code
 RUN pylint **/*.py
-RUN mypy **/*.py
+RUN mypy *.py
 RUN bandit -r .
 
 # Define command to run your application (if applicable)
