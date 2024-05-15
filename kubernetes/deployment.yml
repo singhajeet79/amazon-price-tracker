@@ -17,10 +17,9 @@ spec:
         image: 'docker.io/ajeetsingh77/price-tracker-app:latest'  # Replace with your Docker image name and tag
         ports:
         - containerPort: 5000  # Port your app listens on (matches local development)
-        volumeMounts:
-        - name: your-app-volume  # Name of volume to mount app code (optional)
-          mountPath: /app  # Path to mount volume in container (optional)
+      volumeMounts:
+      - name: your-app-volume
+        mountPath: /app
       volumes:
-      - name: your-app-volume  # Name of volume to mount app code (optional)
-        emptyDir: {}  # Empty directory volume (optional)
-          # You can also use a persistent volume claim to mount existing storag
+      - name: your-app-volume
+        emptyDir: {}
