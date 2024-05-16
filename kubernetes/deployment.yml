@@ -17,6 +17,3 @@ spec:
         image: 'docker.io/ajeetsingh77/price-tracker-app:latest'  # Replace with your Docker image name and tag
         ports:
         - containerPort: 5000  # Port your app listens on (matches local development)
-      volumeMounts:
-      - mountPath: /app
-        name: your-app-volume
