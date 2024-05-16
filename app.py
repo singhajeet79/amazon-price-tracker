@@ -1,6 +1,6 @@
-""
-This Flask app allows users to check the price of \
-    a product from a given URL and see if it's within budget.
+"""
+This Flask app allows users to check the price of a product 
+from a given URL and see if it's within budget.
 """
 
 from flask import Flask, render_template, request
