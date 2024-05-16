@@ -5,8 +5,9 @@ metadata:
 spec:
   selector:
     app: amazon-price-tracker
-  type: ClusterIP  # ClusterIP service type
+  type: NodePort
   ports:
   - protocol: TCP
     port: 5000
     targetPort: 5000
+    nodePort: 30795  # Specify the NodePort to expose the service on

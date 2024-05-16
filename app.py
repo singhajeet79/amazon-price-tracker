@@ -1,4 +1,4 @@
-"""
+""
 This Flask app allows users to check the price of \
     a product from a given URL and see if it's within budget.
 """
@@ -39,4 +39,4 @@ def check_price():
                            product_price=product_price, \
                            within_budget=within_budget, features=features)
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(host='0.0.0.0', port=5000, debug=False)
