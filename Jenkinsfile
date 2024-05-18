@@ -3,7 +3,7 @@ pipeline {
     environment {
         GITHUB_TOKEN = credentials('github-token')
         SCANNER_HOME = tool 'sonar-scanner'
-        /// placeholder for artifactory
+        ///HAHAHAHA placeholder for artifactory
     }
 
     stages {
