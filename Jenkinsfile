@@ -3,7 +3,11 @@ pipeline {
     environment {
         GITHUB_TOKEN = credentials('github-token')
         SCANNER_HOME = tool 'sonar-scanner'
-        ///placeholder for artifactory
+        DOCKER_IMAGE = 'ajeetsingh77/price-tracker-app:latest'
+        ARTIFACTORY_URL = 'http://192.168.56.1:8082'
+        ARTIFACTORY_REPO = 'mc-e2c'
+        ARTIFACTORY_USER = credentials('admin')
+        ARTIFACTORY_PASSWORD = credentials('pswdJan1!')
     }
 
     stages {
@@ -120,6 +124,21 @@ pipeline {
                 sh "trivy image ajeetsingh77/price-tracker-app:latest > trivyimage.txt" 
             }
         }
+        
+        stage('Upload to Artifactory') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'artifactory-credentials', passwordVariable: 'ARTIFACTORY_PASSWORD', usernameVariable: 'ARTIFACTORY_USER')]) {
+                        sh """
+                            curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} \
+                            -T ${DOCKER_IMAGE}.tar \
+                            "${ARTIFACTORY_URL}/artifactory/${ARTIFACTORY_REPO}/${DOCKER_IMAGE}.tar"
+                        """
+                    }
+                }
+            }
+        }        
+
         stage('Run Unit Tests') {
             steps {
                 script {
