@@ -1,21 +1,210 @@
-# Amazon Price Tracker[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
-### This is a simple python script which can be used to track a products prices on [**Amazon**]([https://www.amazon.com](https://www.amazon.com/)). It uses Bs4 and Requests library to do the task. 
----
-### Instructions
- 1. Make sure you have [**Python** ](https://www.python.org/)(Version 3.6 or higher) installed in your system.
- 2. Open the folder in CMD or terminal and type ``` pip install -r requirements.txt```
- 3. Now edit the **settings.json** file using your favorite code editor(Example: Sublime text editor, VSCode, Vim).
- 4. Change ```budget:1000000```  value to your budget. (Example: ```budget:991001```
- 5. Replace the link in **URL** with your link. (Example: ```url:'https://www.amazon.in/G731GT-Graphics-i5-9300H-Windows-G731GT-AU022T/dp/B07S36XJ8Q/'```)
- 6. Change the **headers** in **main.py** according to your [**user agent**](https://www.google.com/search?q=my+user+agent&oq=my+user&aqs=chrome.1.69i57j0l5.2294j1j7&sourceid=chrome&ie=UTF-8). (Example: ```headers = {"User-Agent": 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36'} ```)
- 7. Now save the file, close the editor and run **main.py**.
----
-## Run this program on Startup
-### Linux
-https://help.ubuntu.com/stable/ubuntu-help/startup-applications.html.en
-### Windows
-https://support.microsoft.com/en-in/help/4026268/windows-10-change-startup-apps
+🚀 Overview
 
+PricePulse is a lightweight price-tracking platform that monitors Amazon product prices and alerts users when prices drop below a target value.
+
+This project evolved from a simple scraping script into a modular MVP platform featuring:
+
+✅ Telegram Bot interface
+
+✅ REST API backend
+
+✅ Persistent tracking database
+
+✅ Multi-product tracking per user
+
+✅ Clean service-oriented architecture
+
+🎯 Features
+Core Tracking
+
+Track Amazon product prices
+
+Set custom target price
+
+Multi-product tracking
+
+Persistent storage
+
+Telegram Bot
+
+/track <url> <price> — start tracking
+
+/list — view active trackers
+
+/stop <id> — stop tracking
+
+/help — show commands
+
+REST API
+
+Fetch current price
+
+Create trackers programmatically
+
+Trigger price checks
+
+🏗 Architecture
+User (Telegram / Web)
+        │
+        ▼
+     Flask API
+        │
+        ▼
+   Service Layer
+        │
+ ┌──────┴────────┐
+ ▼               ▼
+Scraper       SQLite DB
+(Amazon)   (products + trackers)
+📁 Project Structure
+amazon-price-tracker/
+│
+├── tracker/
+│   ├── scraper.py      # Amazon scraping logic
+│   ├── service.py      # Business logic
+│   ├── storage.py      # SQLite persistence
+│   └── __init__.py
+│
+├── bot/
+│   └── telegram_bot.py # Telegram interface
+│
+├── web/
+│   └── app.py          # Flask API
+│
+├── requirements.txt
+└── README.md
+⚙️ Local Setup
+1️⃣ Clone Repository
+git clone https://github.com/singhajeet79/amazon-price-tracker.git
+cd amazon-price-tracker
+2️⃣ Create Virtual Environment
+python3 -m venv .venv
+source .venv/bin/activate
+3️⃣ Install Dependencies
+pip install -r requirements.txt
+4️⃣ Initialize Database
+python - <<EOF
+from tracker.storage import init_db
+init_db()
+EOF
+🤖 Telegram Bot Setup
+Create Bot
+
+Open Telegram → @BotFather
+
+Run:
+
+/newbot
+
+Copy the bot token.
+
+Configure Token
+
+Edit:
+
+bot/telegram_bot.py
+BOT_TOKEN = "YOUR_TOKEN_HERE"
+Run Bot
+export PYTHONPATH=$(pwd)
+python bot/telegram_bot.py
+Bot Commands
+/start
+/help
+/track <amazon_url> <target_price>
+/list
+/stop <tracker_id>
+
+Example:
+
+/track https://www.amazon.in/dp/B0FLJY793G 16000
+🌐 Run REST API
+export PYTHONPATH=$(pwd)
+python web/app.py
+
+Server:
+
+http://127.0.0.1:5000
+API Endpoints
+Health Check
+GET /
+Get Current Price
+POST /api/price
+{
+  "url": "https://www.amazon.in/dp/PRODUCT_ID"
+}
+Start Tracking
+POST /api/track
+{
+  "url": "...",
+  "target_price": 16000,
+  "channel": "telegram",
+  "contact": "chat_id"
+}
+🧠 How It Works
+
+User submits product URL.
+
+Scraper extracts title + price.
+
+Product stored in SQLite.
+
+Tracker linked to user.
+
+Background checks compare price vs target.
+
+Alert sent when price drops.
+
+⚠️ Important Notes
+
+Bot works only while the application is running.
+
+Current version uses polling mode (not webhooks).
+
+Amazon HTML structure may change over time.
+
+🗺 Roadmap
+Phase 2 (MVP)
+
+ Modular architecture
+
+ Telegram bot UX
+
+ REST API
+
+ Background scheduler
+
+ Email notifications
+
+Phase 3
+
+ Docker deployment
+
+ Web dashboard
+
+ Price history graphs
+
+ Multi-store support
+
+Phase 4
+
+ Webhook mode
+
+ Cloud deployment
+
+ Affiliate integrations
+
+🧑‍💻 Author
+
+Ajeet Singh
+
+DevOps • Cloud • Platform Engineering
+
+GitHub:
+https://github.com/singhajeet79
+
+📜 License
+
+MIT License
 ---
-### Be sure to stargaze the repository and also checkout [My Website](https://rohandas28.github.io/) to contact me.
+### Be sure to **stargaze** the repository and check out [My GitHub Page](https://singhajeet79.github.io/) to contact me. Thank you!
 #### Thank You.

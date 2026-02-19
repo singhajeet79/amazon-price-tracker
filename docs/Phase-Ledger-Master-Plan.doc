@@ -1,0 +1,63 @@
+Phase 1 – Core Scraper
+Phase 2 – MVP Platform
+   2.1 Storage Layer (SQLite)
+   2.2 Tracking Service
+   2.3 Web API
+   2.4 Telegram Bot
+   2.5 Scheduler
+Phase 3 – Dockerization
+Phase 4 – Hardening + Tests
+--------------------------------------------------------------------------
+We are building Amazon Price Tracker MVP (Web + Telegram).
+
+Status:
+- Phase 1 Core Scraper working
+- Phase 2.1 Storage Layer completed (tracker/storage.py, SQLite)
+
+Next Step:
+Phase 2.2 – Tracking Service layer that combines scraper + storage.
+
+Please continue from Phase 2.2.
+
+-------------------------------------------------------------------------
+We are building Amazon Price Tracker MVP (Web + Telegram).
+
+Status:
+- Scraper working
+- Storage layer done
+- Service layer done
+- Flask API done
+
+Next Step:
+Phase 2.4 – Telegram Bot integration.
+
+------------------------------------------------------------------------
+We are building Amazon Price Tracker MVP (Web + Telegram).
+
+Status:
+- Scraper working
+- Storage layer done
+- Service layer done
+- Flask API done
+- Telegram Bot working
+
+Next Step:
+Phase 2.5 – Background Scheduler for automatic price checks.
+
+------------------------------------------------------------------------
+
+We are building Amazon Price Tracker MVP (Web + Telegram).
+
+Status:
+- Scraper working
+- Storage layer done
+- Service layer done
+- Flask API done
+- Telegram Bot with UX commands done
+
+Next Step:
+Phase 2.5 – Background Scheduler (automatic price checks).
+
+------------------------------------------------------------------------
+
+

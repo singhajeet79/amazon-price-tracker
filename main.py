@@ -1,61 +1,100 @@
 """
-This script checks the price and extracts features from a given URL.
+Core scraping logic for Amazon Price Tracker
 """
 
 import requests
 from bs4 import BeautifulSoup
 
-# Function to check price and extract features
-def check_price_and_features(url, budget, timeout=10):
-    """
-    Check the price and extract features of a product from the given URL.
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (X11; Linux x86_64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/121.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "en-US,en;q=0.9",
+}
 
-    Args:
-        url (str): The URL of the product page.
-        budget (float): The budget limit.
-        timeout (int, optional): Timeout for the request in seconds. Default is 10.
 
-    Returns:
-        dict or None: A dictionary containing product information if found, else None.
-    """
-    headers = {
-        "User-Agent": 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; \
-            rv:125.0) Gecko/20100101 Firefox/125.0'
+class ScrapingError(Exception):
+    pass
+
+
+def fetch_page(url: str, timeout: int = 10) -> BeautifulSoup:
+    response = requests.get(url, headers=HEADERS, timeout=timeout)
+
+    if response.status_code != 200:
+        raise ScrapingError(f"HTTP {response.status_code} received")
+
+    if "captcha" in response.text.lower():
+        raise ScrapingError("Amazon blocked request (CAPTCHA)")
+
+    return BeautifulSoup(response.text, "html.parser")
+
+
+def extract_title(soup: BeautifulSoup) -> str:
+    title = soup.select_one("#productTitle")
+    if not title:
+        raise ScrapingError("Product title not found")
+    return title.get_text(strip=True)
+
+
+def extract_price(soup: BeautifulSoup) -> float:
+    selectors = [
+        "span.a-price span.a-offscreen",
+        "span.a-offscreen",
+        "span.a-price-whole",
+    ]
+
+    for selector in selectors:
+        price_tag = soup.select_one(selector)
+        if price_tag:
+            raw = price_tag.get_text()
+            cleaned = (
+                raw.replace("₹", "")
+                .replace("$", "")
+                .replace(",", "")
+                .strip()
+            )
+            try:
+                return float(cleaned)
+            except ValueError:
+                continue
+
+    raise ScrapingError("Product price not found")
+
+
+def extract_features(soup: BeautifulSoup) -> list[str]:
+    features = soup.select("ul.a-unordered-list.a-vertical.a-spacing-mini span.a-list-item")
+    return [f.get_text(strip=True) for f in features][:5]
+
+
+def check_price_and_features(url: str, budget: float) -> dict:
+    soup = fetch_page(url)
+
+    title = extract_title(soup)
+    price = extract_price(soup)
+    features = extract_features(soup)
+
+    return {
+        "title": title,
+        "price": price,
+        "within_budget": price <= budget,
+        "features": features,
     }
 
-    response = requests.get(url, headers=headers, timeout=timeout)
-    soup = BeautifulSoup(response.text, 'html.parser')
 
-    product_title = soup.find('span', id='productTitle')
-    product_price = soup.find('span', class_="a-price-whole")
-    product_price_fraction = soup.find('span', class_="a-price-fraction")
+if __name__ == "__main__":
+    test_url = input("Enter Amazon product URL: ")
+    budget = float(input("Enter your budget: "))
 
-    if product_title and product_price:
-        product_title = product_title.get_text().strip()
-        product_price = product_price.get_text().replace(',', '') + \
-            (product_price_fraction.get_text() if product_price_fraction else '')
-
-        try:
-            product_price = float(product_price)
-
-            features = soup.find_all('span', class_='a-list-item')
-            feature_list = [feature.get_text().strip() for feature in features][:5]
-
-            within_budget = product_price <= budget
-
-            return {
-                'title': product_title,
-                'price': product_price,
-                'within_budget': within_budget,
-                'features': feature_list
-            }
-        except ValueError:
-            print("Error converting price to float:", product_price)
-            return None
-    else:
-        print("Error finding product title or price on the page.")
-        if not product_title:
-            print("Product title not found.")
-        if not product_price:
-            print("Product price not found.")
-        return None
+    try:
+        result = check_price_and_features(test_url, budget)
+        print("\n---------------------------")
+        print("Title :", result["title"])
+        print("Price :", result["price"])
+        print("Within Budget:", result["within_budget"])
+        print("Features:")
+        for f in result["features"]:
+            print("-", f)
+    except ScrapingError as e:
+        print("ERROR:", e)

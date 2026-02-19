@@ -1,7 +1,4 @@
-bs4
-requests
-pygame
-colored
-Flask
-requests
-beautifulsoup4
+requests>=2.32.0
+beautifulsoup4>=4.12.0
+Flask>=3.0.0
+python-telegram-bot==20.7
