@@ -1,9 +1,12 @@
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Flask](https://img.shields.io/badge/API-Flask-green)
+![Telegram](https://img.shields.io/badge/Bot-Telegram-blue)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
+![Status](https://img.shields.io/badge/Status-MVP-orange)
+
 # 📉 PricePulse — Amazon Price Tracker
 
-Minimal price-tracking platform that monitors Amazon products and sends alerts via a Telegram bot.
-
-Built as a DevOps + backend engineering showcase: API, bot integration, persistence, and deployable architecture.
-
+A Telegram-powered Amazon price tracker built with a modular backend architecture and DevOps-ready deployment design.
 ---
 
 ## ✨ Features
@@ -29,7 +32,7 @@ Scraper ─── SQLite
 
 ---
 
-## ⚡ Quick Start (1 minute)
+## ⚡ Quick Start
 
 ```bash
 git clone https://github.com/singhajeet79/amazon-price-tracker.git
@@ -45,6 +48,16 @@ from tracker.storage import init_db
 init_db()
 EOF
 ```
+
+---
+
+## 🎬 Demo
+
+---
+
+## ✅ Architecture Diagram
+User → Telegram → Flask API → Service → Scraper → DB
+
 ---
 
 ## 🤖 Run Telegram Bot
@@ -83,15 +96,13 @@ Docker • Kubernetes • Jenkins CI/CD
 
 ---
 
-## 🗺 Roadmap
+## 🚧 Status
+✅ MVP Complete  
 
-Scheduler (auto price checks)
+---
 
-Email alerts
-
-Price history charts
-
-Multi-store support
+## 🚧 Scheduler (Next)  
+⬜ Cloud Deployment
 
 ---
 
