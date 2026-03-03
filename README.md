@@ -107,6 +107,9 @@ Docker • Kubernetes • Jenkins CI/CD
 ---
 
 ## 👨‍💻 Author
-
 Ajeet Singh — DevOps & Platform Engineering
 https://github.com/singhajeet79
+
+📜 License
+
+MIT License
